@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.6.2/57e6a7f5d35edce0f92a270a816a054bbed49a36/spring-boot-configuration-processor-2.6.2.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.22/9c08ea24c6eb714e2d6170e8122c069a0ba9aacf/lombok-1.18.22.jar" />
+        </processorPath>
+        <module name="spring-boot-config.main" />
+      </profile>
+    </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="dubbo-common-api" target="11" />
       <module name="dubbo-common-api.main" target="11" />
@@ -17,6 +27,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dubbo-server-consumer.main" options="--add-modules java.base" />
       <module name="dubbo-server-provider.main" options="--add-modules java.base" />
+      <module name="spring-boot-config.main" options="--add-modules java.base" />
+      <module name="spring-boot-config.test" options="--add-modules java.base" />
       <module name="spring-boot-dubbo.dubbo-common-api.main" options="--add-modules java.base" />
       <module name="spring-boot-dubbo.dubbo-server-consumer.main" options="--add-modules java.base" />
       <module name="spring-boot-dubbo.dubbo-server-provider.main" options="--add-modules java.base" />
