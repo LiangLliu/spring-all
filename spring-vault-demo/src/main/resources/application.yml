@@ -1,0 +1,35 @@
+spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/test?useSSL=false&useTimezone=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+#    username: root
+#    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+      ddl-auto: none
+    show-sql: true    # 打印数据库语句
+
+  flyway:
+    locations: classpath:db/migration
+    table: flyway_schema_history
+    baseline-on-migrate: true
+
+  cloud:
+    vault:
+      authentication: token
+      connection-timeout: 5000
+      read-timeout: 15000
+      scheme: http
+      uri: http://localhost:8200
+      token: 00000000-0000-0000-0000-000000000000
+      database:
+        enabled: true
+        role: my-role
+      kv:
+        enabled: true
+        application-name: gs-vault-config
+
