@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service
 class BankService(private val bankRepository: BankRepository) {
 
     fun getBanks(): Collection<Bank> = bankRepository.retrieveBanks()
+
+    fun findBankByAccountNumber(accountNumber: String): Bank = bankRepository.findBankByAccountNumber(accountNumber)
 }
