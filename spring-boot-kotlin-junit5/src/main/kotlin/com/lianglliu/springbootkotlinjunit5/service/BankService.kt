@@ -10,4 +10,6 @@ class BankService(private val bankRepository: BankRepository) {
     fun getBanks(): Collection<Bank> = bankRepository.retrieveBanks()
 
     fun findBankByAccountNumber(accountNumber: String): Bank = bankRepository.findBankByAccountNumber(accountNumber)
+
+    fun addBank(bank: Bank): Bank  = bankRepository.createBank(bank)
 }
