@@ -1,7 +1,7 @@
 package com.lianglliu.springbootkotlinjunit5.repository.mock
 
 import com.lianglliu.springbootkotlinjunit5.repository.BankRepository
-import com.lianglliu.springbootkotlinjunit5.model.Bank
+import com.lianglliu.springbootkotlinjunit5.domain.Bank
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -26,7 +26,18 @@ class MockBankRepository : BankRepository {
         }
 
         banks.add(bank)
-
         return bank
+    }
+
+    override fun updateBank(bank: Bank): Bank {
+        val currentBank = findBankByAccountNumber(bank.accountNumber)
+        banks.remove(currentBank)
+        banks.add(bank)
+        return bank
+    }
+
+    override fun deleteBankByAccountNumber(accountNumber: String) {
+        val currentBank = findBankByAccountNumber(accountNumber)
+        banks.remove(currentBank)
     }
 }

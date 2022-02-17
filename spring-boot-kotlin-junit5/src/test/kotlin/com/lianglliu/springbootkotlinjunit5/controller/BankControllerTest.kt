@@ -1,8 +1,7 @@
 package com.lianglliu.springbootkotlinjunit5.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.lianglliu.springbootkotlinjunit5.model.Bank
-import org.junit.jupiter.api.Assertions.*
+import com.lianglliu.springbootkotlinjunit5.domain.Bank
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -11,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.get
-import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -121,6 +118,93 @@ internal class BankControllerTest @Autowired constructor(
             performPost.andDo { print() }
                 .andExpect {
                     status { isBadRequest() }
+                }
+        }
+    }
+
+    @Nested
+    @DisplayName("PATCH /api/banks")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class UpdateBanks {
+        @Test
+        fun `should update the bank`() {
+            // given
+            val updateBank = Bank("1234", 5.55, 2)
+
+            // when
+            val performPatchRequest = mockMvc.patch(baseUrl) {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(updateBank)
+            }
+
+            // then
+            performPatchRequest.andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content {
+                        contentType(MediaType.APPLICATION_JSON)
+                        json(objectMapper.writeValueAsString(updateBank))
+                    }
+                }
+
+            mockMvc.get("$baseUrl/1234")
+                .andExpect {
+                    content { json(objectMapper.writeValueAsString(updateBank)) }
+                }
+        }
+
+        @Test
+        fun `should return BAD REQUEST when given account number not exists`() {
+            // given
+            val updateBank = Bank("dose_not_exists", 31.245, 2)
+
+            // when
+            val performPatchRequest = mockMvc.patch(baseUrl) {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(updateBank)
+            }
+
+            // then
+            performPatchRequest.andDo { print() }
+                .andExpect {
+                    status { isNotFound() }
+                }
+        }
+    }
+
+    @Nested
+    @DisplayName("DELETE /api/banks/{accountNumber}")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class DeleteExistingBank {
+        @Test
+        fun `should delete the bank when given account number`() {
+            // given
+            val accountNumber = 1234
+
+            // when
+            mockMvc.delete("$baseUrl/$accountNumber")
+                .andDo { print() }
+                .andExpect {
+                    status { isNoContent() }
+                }
+
+            mockMvc.get("$baseUrl/$accountNumber")
+                .andDo { print() }
+                .andExpect {
+                    status { isNotFound() }
+                }
+        }
+
+        @Test
+        fun `should return NOT FOUND id the account number does not exist`() {
+            // given
+            val accountNumber = "does_not_exist"
+
+            // when
+            mockMvc.delete("$baseUrl/$accountNumber")
+                .andDo { print() }
+                .andExpect {
+                    status { isNotFound() }
                 }
         }
     }

@@ -1,6 +1,6 @@
 package com.lianglliu.springbootkotlinjunit5.service
 
-import com.lianglliu.springbootkotlinjunit5.model.Bank
+import com.lianglliu.springbootkotlinjunit5.domain.Bank
 import com.lianglliu.springbootkotlinjunit5.repository.BankRepository
 import org.springframework.stereotype.Service
 
@@ -11,5 +11,9 @@ class BankService(private val bankRepository: BankRepository) {
 
     fun findBankByAccountNumber(accountNumber: String): Bank = bankRepository.findBankByAccountNumber(accountNumber)
 
-    fun addBank(bank: Bank): Bank  = bankRepository.createBank(bank)
+    fun addBank(bank: Bank): Bank = bankRepository.createBank(bank)
+
+    fun updateBank(bank: Bank): Bank = bankRepository.updateBank(bank)
+
+    fun deleteBankByAccountNumber(accountNumber: String) = bankRepository.deleteBankByAccountNumber(accountNumber)
 }
