@@ -2,10 +2,13 @@ package com.lianglliu.springbootkotlinjunit5.service
 
 import com.lianglliu.springbootkotlinjunit5.domain.Bank
 import com.lianglliu.springbootkotlinjunit5.repository.BankRepository
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
 @Service
-class BankService(private val bankRepository: BankRepository) {
+class BankService(
+    @Qualifier("mockBankRepository") private val bankRepository: BankRepository
+) {
 
     fun getBanks(): Collection<Bank> = bankRepository.retrieveBanks()
 

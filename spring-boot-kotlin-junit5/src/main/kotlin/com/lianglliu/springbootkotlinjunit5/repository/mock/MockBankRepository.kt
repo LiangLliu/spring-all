@@ -4,7 +4,7 @@ import com.lianglliu.springbootkotlinjunit5.repository.BankRepository
 import com.lianglliu.springbootkotlinjunit5.domain.Bank
 import org.springframework.stereotype.Repository
 
-@Repository
+@Repository("mockBankRepository")
 class MockBankRepository : BankRepository {
 
     val banks = mutableListOf(

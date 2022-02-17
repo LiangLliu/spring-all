@@ -13,7 +13,7 @@ internal class BankServiceTest {
     @Test
     fun `should call its repository to retrieve banks`() {
         // when
-        val banks = bankService.getBanks()
+        bankService.getBanks()
 
         // then
         verify(exactly = 1) { bankRepository.retrieveBanks() }
