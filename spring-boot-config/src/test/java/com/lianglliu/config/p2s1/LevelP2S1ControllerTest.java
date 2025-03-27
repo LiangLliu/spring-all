@@ -20,29 +20,30 @@ public class LevelP2S1ControllerTest {
     private LevelP2S1Controller levelController;
 
     @Test
-    public void shouldGetBasicLevelWhenLevelNumberIsLessOne() throws Exception {
+    public void should_return_basic_when_level_number_is_less_1() throws Exception {
+        ReflectionTestUtils.setField(levelController, "levelNumber", 0);
         String result = mockMvc
                 .perform(get("/level/p2s1"))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
-        assertEquals(result, "basic");
+        assertEquals("basic", result);
     }
 
     @Test
-    public void should_get_advanced_when_level_number_is_1() throws Exception {
+    public void should_return_advanced_when_level_number_is_1() throws Exception {
 
         ReflectionTestUtils.setField(levelController, "levelNumber", 1);
         String result = mockMvc.perform(get("/level/p2s1")).andReturn().getResponse().getContentAsString();
-        assertEquals(result, "advanced");
+        assertEquals("advanced", result);
     }
 
     @Test
-    public void should_get_advanced_when_level_number_more_than_1() throws Exception {
+    public void should_return_advanced_when_level_number_more_than_1() throws Exception {
 
         ReflectionTestUtils.setField(levelController, "levelNumber", 5);
         String result = mockMvc.perform(get("/level/p2s1")).andReturn().getResponse().getContentAsString();
-        assertEquals(result, "advanced");
+        assertEquals("advanced", result);
     }
 }

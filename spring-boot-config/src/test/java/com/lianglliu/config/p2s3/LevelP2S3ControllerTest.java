@@ -19,7 +19,7 @@ class LevelControllerTest {
     @Test
     public void should_return_basic_when_level_number_less_1() throws Exception {
         String result = mockMvc.perform(get("/level/p2s3")).andReturn().getResponse().getContentAsString();
-        assertEquals(result, "basic");
+        assertEquals("basic", result);
     }
 
 }
@@ -35,7 +35,7 @@ class LevelIs1Test {
     @Test
     public void should_return_advanced_when_level_is_1() throws Exception {
         String result = mockMvc.perform(get("/level/p2s3")).andReturn().getResponse().getContentAsString();
-        assertEquals(result, "advanced");
+        assertEquals("advanced", result);
     }
 
 }
@@ -52,7 +52,7 @@ class LevelIs5Test {
     @Test
     public void should_return_advanced_when_level_is_more_than_1() throws Exception {
         String result = mockMvc.perform(get("/level/p2s3")).andReturn().getResponse().getContentAsString();
-        assertEquals(result, "advanced");
+        assertEquals("advanced", result);
     }
 
 }
