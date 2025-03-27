@@ -1,19 +1,23 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("org.springframework.boot") version "2.7.1"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.spring") version "1.6.10"
+    id 'org.jetbrains.kotlin.jvm' version '1.9.25'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25'
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = "com.lianglliu"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -25,13 +29,12 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.4")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll '-Xjsr305=strict'
     }
 }
 
-tasks.withType<Test> {
+tasks.named('test') {
     useJUnitPlatform()
 }
